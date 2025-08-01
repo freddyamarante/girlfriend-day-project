@@ -1,18 +1,28 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
+
 interface Props {
-  class?: string
+  class?: HTMLAttributes['class']
 }
 
 defineProps<Props>()
 </script>
 
 <template>
-  <div class="min-h-screen w-full bg-slate-900 relative overflow-hidden grainy-bg" :class="class">
+  <div class="min-h-screen w-full relative overflow-hidden grainy-bg" :class="class">
     <slot />
   </div>
 </template>
 
 <style scoped>
+.grainy-bg {
+  background: hsla(238, 100%, 71%, 1);
+  background: radial-gradient(circle, hsla(238, 100%, 71%, 1) 0%, hsla(295, 100%, 84%, 1) 100%);
+  background: -moz-radial-gradient(circle, hsla(238, 100%, 71%, 1) 0%, hsla(295, 100%, 84%, 1) 100%);
+  background: -webkit-radial-gradient(circle, hsla(238, 100%, 71%, 1) 0%, hsla(295, 100%, 84%, 1) 100%);
+  filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#696EFF", endColorstr="#F8ACFF", GradientType=0 );
+}
+
 .grainy-bg:before {
   content: "";
   background-color: transparent;
