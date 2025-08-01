@@ -31,7 +31,7 @@ const handleClick = () => {
     <Motion
       :initial="{ rotateY: 0, y: 0 }"
       :animate="{ y: [-6, 6, -6], rotateY: isFlipped ? -180 : 0 }"
-      :whileHover="canBeFlipped && !isFlipped ? { rotateY: -15, scale: 1.05 } : {}"
+      :whileHover="canBeFlipped && !isFlipped ? { rotateY: -15, scale: 1.05 } : {scale: 1.05}"
       :transition="{ 
         type: 'spring', 
         stiffness: 300, 
