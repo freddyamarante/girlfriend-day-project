@@ -98,15 +98,12 @@ const handleClick = () => {
           >
             {{ props.cardData.emoji }}
           </Motion>
-          <Motion
-            :initial="{ scale: 1, opacity: 1 }"
-            :whileHover="{ scale: 1.02, opacity: 0.9 }"
-            :transition="{ type: 'spring', stiffness: 400, damping: 25 }"
+          <p
             class="text-lg font-semibold drop-shadow-lg leading-relaxed text-purple-900 flex-grow px-2"
           >
             {{ props.cardData.content }}
-          </Motion>
-          <p class="text-purple-800 text-sm mt-4 drop-shadow-md flex-shrink-0">{{ props.cardData.footnote }}</p>
+        </p>
+          <span class="text-purple-800 text-sm mt-4 drop-shadow-md flex-shrink-0">{{ props.cardData.footnote }}</span>
         </div>
       </div>
     </Motion>
