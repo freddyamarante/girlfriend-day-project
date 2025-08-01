@@ -14,6 +14,7 @@ interface Props {
   class?: HTMLAttributes['class']
   cardData: CardData
   canBeFlipped?: boolean
+  hoverTempo?: number
 }
 
 const props = defineProps<Props>()
@@ -41,6 +42,10 @@ const handleClick = () => {
           repeat: Infinity,
           ease: 'easeInOut'
         }
+      }"
+      :transition-while-hover="{ 
+        duration: hoverTempo || 0.3,
+        ease: 'easeInOut'
       }"
       class="relative w-full h-full preserve-3d cursor-pointer"
       @click="handleClick"

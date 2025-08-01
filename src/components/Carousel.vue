@@ -61,6 +61,15 @@ cardStates.value.forEach((_, index) => {
   })
 })
 
+// Watch for currentIndex changes to flip back non-current cards
+watch(currentIndex, (newIndex) => {
+  cardStates.value.forEach((isFlipped, index) => {
+    if (isFlipped && index !== newIndex) {
+      cardStates.value[index] = false
+    }
+  })
+})
+
 // Handle card click - either flip current card or navigate to clicked card
 const handleCardClick = (index: number) => {
   if (index === currentIndex.value) {
@@ -70,6 +79,12 @@ const handleCardClick = (index: number) => {
     // If clicking a different card, navigate to it
     goToCard(index)
   }
+}
+
+// Calculate hover tempo based on card index
+const getHoverTempo = (index: number) => {
+  // Create varying tempos: 0.2, 0.3, 0.4, 0.5, 0.6 seconds
+  return 0.2 + (index * 0.1)
 }
 </script>
 
@@ -92,6 +107,7 @@ const handleCardClick = (index: number) => {
           :cardData="card"
           :isFlipped="cardStates[index]"
           :canBeFlipped="index === currentIndex"
+          :hoverTempo="getHoverTempo(index)"
           class="w-full h-full"
         />
       </div>
