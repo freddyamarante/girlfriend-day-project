@@ -74,7 +74,7 @@ const handleCardClick = (index: number) => {
 </script>
 
 <template>
-  <div class="relative w-full max-w-4xl mx-auto overflow-visible" :class="class">
+  <div class="relative w-full max-w-4xl flex flex-col justify-center items-center gap-6 h-full mx-auto overflow-visible" :class="class">
     <!-- Cards Container -->
     <div class="relative w-full h-96 flex justify-center items-center">
       <!-- Horizontal Cards -->
@@ -97,45 +97,88 @@ const handleCardClick = (index: number) => {
       </div>
     </div>
 
-    <!-- Navigation Arrows -->
-    <button 
-      @click="prevCard"
-      :disabled="isFirstCard"
-      class="absolute -left-10 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 z-10"
-      :class="isFirstCard 
-        ? 'bg-white/10 text-white/50' 
-        : 'bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white'"
-    >
-      ←
-    </button>
-    <button 
-      @click="nextCard"
-      :disabled="isLastCard"
-      class="absolute -right-10 top-1/2 -translate-y-1/2 p-3 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 z-10"
-      :class="isLastCard 
-        ? 'bg-white/10 text-white/50' 
-        : 'bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white'"
-    >
-      →
-    </button>
-
-    <!-- Dots Indicator -->
-    <div class="absolute -bottom-24 left-1/2 -translate-x-1/2 flex flex-col justify-center items-center gap-4">
-      <div class="flex space-x-2">
+    <!-- Integrated Navigation Controls -->
+    <div class="relative flex flex-col justify-center items-center gap-4">
+      <!-- Navigation Container with Arrows and Dots -->
+      <div class="flex items-center gap-4 p-4 rounded-2xl neumorphic-concave">
+        <!-- Previous Arrow -->
         <button 
-          v-for="(_, index) in cards" 
-          :key="index"
-          @click="goToCard(index)"
-          class="w-3 h-3 rounded-full transition-all duration-200"
-          :class="currentIndex === index 
-            ? 'bg-white scale-125' 
-            : 'bg-white/40 hover:bg-white/60'"
-        />
+          @click="prevCard"
+          :disabled="isFirstCard"
+          class="w-10 h-10 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 neumorphic-button"
+          :class="isFirstCard 
+            ? 'neumorphic-disabled' 
+            : 'neumorphic-convex'"
+        >
+          <span class="text-sm font-bold text-purple-900">←</span>
+        </button>
+
+        <!-- Dots -->
+        <div class="flex space-x-3">
+          <button 
+            v-for="(_, index) in cards" 
+            :key="index"
+            @click="goToCard(index)"
+            class="w-4 h-4 rounded-full transition-all duration-200 neumorphic-button"
+            :class="currentIndex === index 
+              ? 'neumorphic-pressed' 
+              : 'neumorphic-convex'"
+          />
+        </div>
+
+        <!-- Next Arrow -->
+        <button 
+          @click="nextCard"
+          :disabled="isLastCard"
+          class="w-10 h-10 rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 neumorphic-button"
+          :class="isLastCard 
+            ? 'neumorphic-disabled' 
+            : 'neumorphic-convex'"
+        >
+          <span class="text-sm font-bold text-purple-900">→</span>
+        </button>
       </div>
+
       <!-- Card Counter -->
-      <div class=" text-white/80 text-sm bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full w-fit">
+      <div class="px-4 py-2 rounded-xl neumorphic-convex text-purple-900 font-semibold text-sm">
         {{ currentIndex + 1 }} / {{ cards.length }}
       </div>
     </div>
   </div>
-</template> 
+</template>
+
+<style scoped>
+.neumorphic-button {
+  @apply relative;
+}
+
+.neumorphic-convex {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+  box-shadow: 
+    8px 8px 16px rgba(0, 0, 0, 0.1),
+    -8px -8px 16px rgba(255, 255, 255, 0.1),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.05),
+    inset 2px 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.neumorphic-concave {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow: 
+    inset 8px 8px 16px rgba(0, 0, 0, 0.1),
+    inset -8px -8px 16px rgba(255, 255, 255, 0.1);
+}
+
+.neumorphic-pressed {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.1) 100%);
+  box-shadow: 
+    inset 8px 8px 16px rgba(0, 0, 0, 0.1),
+    inset -8px -8px 16px rgba(255, 255, 255, 0.1);
+}
+
+.neumorphic-disabled {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.05) 100%);
+  box-shadow: 
+    inset 2px 2px 4px rgba(0, 0, 0, 0.05),
+    inset -2px -2px 4px rgba(255, 255, 255, 0.05);
+}
+</style> 
