@@ -12,7 +12,7 @@ interface CardData {
 
 interface Props {
   cards: CardData[]
-  class?: string
+  customClass?: string
 }
 
 const props = defineProps<Props>()
@@ -89,7 +89,7 @@ const getHoverTempo = (index: number) => {
 </script>
 
 <template>
-  <div class="relative w-full max-w-4xl flex flex-col justify-center items-center gap-6 mx-auto overflow-visible" :class="class">
+  <div class="relative w-full max-w-4xl flex flex-col justify-center items-center gap-6 mx-auto overflow-visible" :class="customClass">
     <!-- Cards Container -->
     <div class="relative w-full h-96 flex justify-center items-center">
       <!-- Horizontal Cards -->

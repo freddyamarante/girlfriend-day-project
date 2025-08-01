@@ -11,7 +11,7 @@ interface CardData {
 }
 
 interface Props {
-  class?: HTMLAttributes['class']
+  customClass?: HTMLAttributes['class']
   cardData: CardData
   canBeFlipped?: boolean
   hoverTempo?: number
@@ -28,7 +28,7 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div class="w-80 h-96 perspective-1000" :class="props.class">
+  <div class="w-80 h-96 perspective-1000" :class="props.customClass">
     <Motion
       :initial="{ rotateY: 0, y: 0 }"
       :animate="{ y: [-6, 6, -6], rotateY: isFlipped ? -180 : 0 }"

@@ -2,14 +2,14 @@
 import type { HTMLAttributes } from 'vue'
 
 interface Props {
-  class?: HTMLAttributes['class']
+  customClass?: HTMLAttributes['class']
 }
 
 defineProps<Props>()
 </script>
 
 <template>
-  <div class="min-h-screen w-full relative overflow-hidden grainy-bg" :class="class">
+  <div class="min-h-screen w-full relative overflow-hidden grainy-bg" :class="customClass">
     <slot />
   </div>
 </template>
