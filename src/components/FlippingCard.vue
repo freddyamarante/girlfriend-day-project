@@ -1,26 +1,28 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { Motion } from 'motion-v'
-import { ref } from 'vue'
 
 interface CardData {
   emoji: string
   title: string
   content: string
   footnote: string
-  instruction: string
+  instruction?: string
 }
 
 interface Props {
   class?: HTMLAttributes['class']
   cardData: CardData
+  canBeFlipped?: boolean
 }
 
 const props = defineProps<Props>()
-const isFlipped = ref(false)
+const isFlipped = defineModel<boolean>('isFlipped', { default: false })
 
-const toggleFlip = () => {
-  isFlipped.value = !isFlipped.value
+const handleClick = () => {
+  if (props.canBeFlipped) {
+    isFlipped.value = !isFlipped.value
+  }
 }
 </script>
 
@@ -28,7 +30,8 @@ const toggleFlip = () => {
   <div class="w-80 h-96 perspective-1000" :class="props.class">
     <Motion
       :initial="{ rotateY: 0, y: 0 }"
-      :animate="{ y: [-6, 6, -6], rotateY: isFlipped ? 180 : 0 }"
+      :animate="{ y: [-6, 6, -6], rotateY: isFlipped ? -180 : 0 }"
+      :whileHover="canBeFlipped && !isFlipped ? { rotateY: -15, scale: 1.05 } : {}"
       :transition="{ 
         type: 'spring', 
         stiffness: 300, 
@@ -39,11 +42,8 @@ const toggleFlip = () => {
           ease: 'easeInOut'
         }
       }"
-      :whileHover="{
-        scale: 1.05,
-      }"
       class="relative w-full h-full preserve-3d cursor-pointer"
-      @click="toggleFlip"
+      @click="handleClick"
     >
       <!-- Front of the card -->
       <div class="absolute w-full h-full backface-hidden rounded-3xl flex items-center justify-center shadow-2xl bg-gradient-to-br from-pink-300 via-pink-400 to-purple-500 rotate-y-0 overflow-hidden">
@@ -71,7 +71,7 @@ const toggleFlip = () => {
           >
             {{ props.cardData.title }}
           </Motion>
-          <p class="text-purple-800 text-sm mt-2 drop-shadow-md">{{ props.cardData.instruction }}</p>
+          <p v-if="props.cardData.instruction" class="text-purple-800 text-sm mt-2 drop-shadow-md">{{ props.cardData.instruction }}</p>
         </div>
       </div>
 
