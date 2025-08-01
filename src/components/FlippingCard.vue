@@ -88,13 +88,13 @@ const handleClick = () => {
         <div class="absolute bottom-3 left-3 text-white/40 text-sm select-none">🌟</div>
         <div class="absolute bottom-2 right-2 text-white/40 text-lg select-none">✨</div>
         
-        <!-- Romantic message -->
-        <div class="text-center text-purple-900 z-10">
+        <!-- Romantic message with scrollable content -->
+        <div class="text-center text-purple-900 z-10 w-full h-full flex flex-col justify-start items-center overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-purple-300 scrollbar-track-transparent py-4">
           <Motion
             :initial="{ scale: 1, opacity: 1 }"
             :whileHover="{ scale: 1.05, opacity: 0.9 }"
             :transition="{ type: 'spring', stiffness: 400, damping: 25 }"
-            class="text-3xl font-bold drop-shadow-lg mb-4 select-none"
+            class="text-3xl font-bold drop-shadow-lg mb-4 select-none flex-shrink-0"
           >
             {{ props.cardData.emoji }}
           </Motion>
@@ -102,11 +102,11 @@ const handleClick = () => {
             :initial="{ scale: 1, opacity: 1 }"
             :whileHover="{ scale: 1.02, opacity: 0.9 }"
             :transition="{ type: 'spring', stiffness: 400, damping: 25 }"
-            class="text-lg font-semibold drop-shadow-lg leading-relaxed text-purple-900"
+            class="text-lg font-semibold drop-shadow-lg leading-relaxed text-purple-900 flex-grow px-2"
           >
             {{ props.cardData.content }}
           </Motion>
-          <p class="text-purple-800 text-sm mt-4 drop-shadow-md">{{ props.cardData.footnote }}</p>
+          <p class="text-purple-800 text-sm mt-4 drop-shadow-md flex-shrink-0">{{ props.cardData.footnote }}</p>
         </div>
       </div>
     </Motion>
@@ -132,5 +132,27 @@ const handleClick = () => {
 
 .rotate-y-180 {
   transform: rotateY(180deg);
+}
+
+/* Custom scrollbar styles */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thumb-purple-300::-webkit-scrollbar-thumb {
+  background: rgba(196, 181, 253, 0.6);
+  border-radius: 3px;
+}
+
+.scrollbar-thumb-purple-300::-webkit-scrollbar-thumb:hover {
+  background: rgba(196, 181, 253, 0.8);
+}
+
+.scrollbar-track-transparent::-webkit-scrollbar-track {
+  background: transparent;
 }
 </style> 
